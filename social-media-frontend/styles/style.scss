@@ -1,0 +1,9 @@
+@import "./globals";
+@import "./fonts";
+@import "./color";
+
+body {
+  font-family: $inter;
+  background-color: $bg;
+  @apply text-primary;
+}
