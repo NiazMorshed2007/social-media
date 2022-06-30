@@ -1,16 +1,21 @@
-import { NextPage } from "next";
-import React from "react";
-import { FiSearch } from "react-icons/fi";
+import { NextComponentType } from "next";
 import { BsPlusSquare } from "react-icons/bs";
+import { FiSearch } from "react-icons/fi";
 import { RiApps2Line } from "react-icons/ri";
 
-const Header: NextPage = () => {
+const Header: NextComponentType = () => {
   return (
-    <header className="p-4 px-[7%] bg-white flex items-center justify-between">
+    <header className="p-4 px-[3%] sticky top-0 z-50 bg-white/40 backdrop-blur flex items-center justify-between">
       <div>
         <h2 className="font-bold text-xl">PiqoSocial</h2>
       </div>
-      <div className="w-2/5 relative">
+      <div className="w-8/12 mx-52 px-10 border-x">
+        <h2 className="font-semibold text-lg">Home</h2>
+      </div>
+      <div>
+        <h2 className="font-bold text-xl">PiqoSocial</h2>
+      </div>
+      {/* <div className="w-2/5 relative">
         <FiSearch className="absolute top-1/2 -translate-y-1/2 left-2" />
         <input
           type="text"
@@ -22,8 +27,8 @@ const Header: NextPage = () => {
         <i className="w-8 h-8 rounded-full cursor-pointer text-primary bg-secondary/20 flex items-center justify-center">
           <BsPlusSquare />
         </i>
-        <i className="w-8 h-8 rounded-full cursor-pointer text-primary bg-secondary/20 flex items-center justify-center">
-          <RiApps2Line />
+        <i className="w-8 h-8 rounded-full cursor-pointer text-primary border border-secondary/20 flex items-center justify-center">
+          <img src="/notif.png" alt="" className="w-4 h-4 cursor-pointer" />
         </i>
         <div className="w-9 rounded-full cursor-pointer overflow-hidden h-9">
           <img
@@ -32,7 +37,7 @@ const Header: NextPage = () => {
             alt=""
           />
         </div>
-      </div>
+      </div> */}
     </header>
   );
 };

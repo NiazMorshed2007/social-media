@@ -3,7 +3,7 @@
 @import "./color";
 
 body {
-  font-family: $inter;
+  font-family: $inter, $bangla, $arabic, sans-serif;
   background-color: $bg;
   @apply text-primary;
 }

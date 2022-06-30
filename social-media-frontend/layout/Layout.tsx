@@ -1,6 +1,10 @@
 import { NextPage } from "next";
 import React, { ReactNode } from "react";
 import Header from "../components/Header";
+import MiddleHeader from "../components/MiddleHeader";
+import Navigatons from "../components/Navigatons";
+import SuggestionProfile from "../components/SuggestionProfile";
+import Suggestions from "../components/Suggestions";
 
 interface Props {
   children: ReactNode;
@@ -9,17 +13,14 @@ interface Props {
 const Layout: NextPage<Props> = (props) => {
   const { children } = props;
   return (
-    <main>
-      <Header />
-      <div className="children p-10 flex gap-5 px-[7%]">
-        <div className="w-4/12">
-          <div className="bg-white rounded-xl p-4">
-            <h2 className="font-semibold">Activity</h2>
-          </div>
-        </div>
-        {children}
-        <div></div>
+    <main className="flex">
+      {/* <Header /> */}
+      <Navigatons />
+      <div className="main w-6/12 mx-auto border-x  border-gray-300">
+        <MiddleHeader />
+        <div className="px-4">{children}</div>
       </div>
+      <Suggestions />
     </main>
   );
 };
