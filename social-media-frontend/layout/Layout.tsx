@@ -17,8 +17,7 @@ const Layout: NextPage<Props> = (props) => {
       {/* <Header /> */}
       <Navigatons />
       <div className="main w-6/12 mx-auto border-x  border-gray-300">
-        <MiddleHeader />
-        <div className="px-4">{children}</div>
+        {children}
       </div>
       <Suggestions />
     </main>
