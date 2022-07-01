@@ -44,7 +44,7 @@ const Navigatons: NextComponentType = () => {
           </div>
           <div
             onClick={() => {
-              navigate("/profile/niazmorshed_");
+              navigate("/profile/niazmorshed__");
             }}
             className="flex p-2 transition-all hover:bg-gray-200/50 rounded-2xl w-max pr-5 px-1 items-center gap-2 cursor-pointer"
           >

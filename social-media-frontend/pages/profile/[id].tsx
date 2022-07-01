@@ -1,10 +1,26 @@
 import Head from "next/head";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import MiddleHeader from "../../components/MiddleHeader";
 import Post from "../../components/Post";
 import Layout from "../../layout/Layout";
+import { getProfile } from "../../core/services/profile.service";
+import axios from "axios";
 
 const Profile = () => {
+  const [profile, setProfile] = useState<{ name: String; username: String }>();
+  const router = useRouter();
+  const { id } = router.query;
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/users/" + id)
+      .then((res) => {
+        setProfile(res.data[0]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [id]);
   return (
     <>
       <Head>
@@ -13,7 +29,7 @@ const Profile = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <MiddleHeader title={"Profile"} />
+        <MiddleHeader title={profile && profile.name} />
         <div className="wrapper relative -z-10">
           <div className="banner -z-10 absolute top-0 left-0 h-48 w-full">
             <img
@@ -34,22 +50,28 @@ const Profile = () => {
             </button>
           </div>
           <div className="base-info border-b border-gray-300 pb-7 px-4 my-3">
-            <h2 className=" text-lg font-semibold">Niaz Morshed 💻</h2>
-            <p className="text-[13px] text-secondary">@niazmorshed_</p>
-            <div className="bio py-2">
-              <p className=" text-sm">
-                14 y/o. FrontEnd Developer ( React | Javascript | Typescript ).
-                💻 • Building in public & sharing useful resources.🙌
-              </p>
-            </div>
-            <div className="py-2 flex font-light items-center gap-3">
-              <div className="text-sm">
-                <span className="font-semibold">22 </span>Following
-              </div>
-              <div className="text-sm">
-                <span className="font-semibold">90 </span>Followers
-              </div>
-            </div>
+            {profile && (
+              <>
+                <h2 className=" text-lg font-semibold">{profile.name}</h2>
+                <p className="text-[13px] text-secondary">
+                  @{profile.username}
+                </p>
+                <div className="bio py-2">
+                  <p className=" text-sm">
+                    14 y/o. FrontEnd Developer ( React | Javascript | Typescript
+                    ). 💻 • Building in public & sharing useful resources.🙌
+                  </p>
+                </div>
+                <div className="py-2 flex font-light items-center gap-3">
+                  <div className="text-sm">
+                    <span className="font-semibold">22 </span>Following
+                  </div>
+                  <div className="text-sm">
+                    <span className="font-semibold">90 </span>Followers
+                  </div>
+                </div>
+              </>
+            )}
           </div>
           <div className="posts-wrapper px-4">
             <Post />
