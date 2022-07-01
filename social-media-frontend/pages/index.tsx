@@ -14,9 +14,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
+        <MiddleHeader title={"Home"} />
         <div className="px-4">
-          <MiddleHeader title={"Home"} />
-
           <div className="rounded-xl p-3 mt-5 bg-white">
             <div className="w-full flex gap-2 items-center">
               <div className="w-10 rounded-full cursor-pointer overflow-hidden h-10">
