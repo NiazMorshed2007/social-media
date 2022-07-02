@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 html,
 body {
   padding: 0;
@@ -19,4 +17,8 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.primary-btn {
+  @apply px-4 rounded-3xl text-white text-sm bg-brand outline-none;
 }

@@ -1,6 +1,8 @@
+@import "~antd/dist/antd.css";
 @import "./globals";
 @import "./fonts";
 @import "./color";
+@import "./ant";
 
 body {
   font-family: $inter, $bangla, $arabic, sans-serif;

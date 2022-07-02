@@ -12,6 +12,7 @@ module.exports = {
       colors: {
         primary: "#1b2233",
         secondary: "rgb(146 155 174)",
+        brand: "#03a9f4",
       },
     },
   },

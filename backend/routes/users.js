@@ -27,11 +27,12 @@ router.get("/:id", async (req, res) => {
 
 router.post("/signup", async (req, res) => {
   try {
-    const { username, name, password } = req.body;
+    const { username, name, email, password } = req.body;
     const hashedPass = await bcrypt.hash(password, 10);
     const newUser = new User({
       username,
       name,
+      email,
       password: hashedPass,
     });
     newUser
