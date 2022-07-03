@@ -12,7 +12,7 @@ const SuggestionProfile: NextComponentType = () => {
         />
       </div>
       <div>
-        <h2 className="text-sm font-medium">Meerw saj</h2>
+        <h2 className="text-sm font-medium">John Doe</h2>
         <p className="text-[11px] text-secondary">lorejhdjksh....</p>
       </div>
     </div>

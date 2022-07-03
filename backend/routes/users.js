@@ -2,6 +2,7 @@ const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
+const checkLogin = require("../middlewares/checkLogin");
 
 require("dotenv").config();
 
@@ -9,6 +10,13 @@ router.route("/").get((req, res) => {
   User.find()
     .then((users) => res.json(users))
     .catch((err) => res.status(400).json("Error: " + err));
+});
+
+router.delete("/:id", checkLogin, (req, res) => {
+  User.findByIdAndDelete(req.params.userid);
+  res.status(200).json({
+    message: "User deleted!",
+  });
 });
 
 router.get("/:id", async (req, res) => {
