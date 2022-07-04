@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const checkLogin = require("../middlewares/checkLogin");
+const isCurrentUser = require("../middlewares/isCurrentUser");
 
 require("dotenv").config();
 
@@ -13,17 +14,30 @@ router.route("/").get((req, res) => {
 });
 
 router.delete("/:id", checkLogin, (req, res) => {
-  User.findByIdAndDelete(req.params.userid);
-  res.status(200).json({
-    message: "User deleted!",
-  });
+  User.findByIdAndDelete(req.userid)
+    .then(() => {
+      res.status(200).json({
+        message: "User deleted!",
+      });
+    })
+    .catch(() => {
+      res.json(400).json({
+        message: "Something went wrong",
+      });
+    });
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", isCurrentUser, async (req, res) => {
   User.find({ username: req.params.id })
     .then((user) => {
-      if (user.length > 0) {
-        res.status(200).json(user);
+      if (user && user.length > 0) {
+        const data = {
+          username: user[0].username,
+          userId: user[0]._id,
+          name: user[0].name,
+          hasAccess: req.hasAccess ? true : false,
+        };
+        res.status(200).json(data);
       } else {
         res.status(401).json({
           message: "This account dosen't exists",

@@ -6,21 +6,24 @@ import Post from "../../components/Post";
 import Layout from "../../layout/Layout";
 import { getProfile } from "../../core/services/profile.service";
 import axios from "axios";
+import { http } from "../../core/helpers/http";
+import { getOne } from "../../core/services/api";
 
 const Profile = () => {
-  const [profile, setProfile] = useState<{ name: String; username: String }>();
+  const [profile, setProfile] = useState<any>();
   const router = useRouter();
   const { id } = router.query;
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/users/" + id)
+    http
+      .get("users/" + id)
       .then((res) => {
-        setProfile(res.data[0]);
+        console.log(res);
+        setProfile(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [id]);
+  }, []);
   return (
     <>
       <Head>
@@ -46,7 +49,7 @@ const Profile = () => {
               />
             </div>
             <button className="mt-4 text-sm p-2 rounded-3xl border px-4 border-slate-400">
-              Edit Profile
+              {profile && profile.hasAccess ? "Edit Profile" : "Follow"}
             </button>
           </div>
           <div className="base-info border-b border-gray-300 pb-7 px-4 my-3">

@@ -1,10 +1,10 @@
+import axios from "axios";
 import { NextPage } from "next";
-import React, { ReactNode } from "react";
-import Header from "../components/Header";
-import MiddleHeader from "../components/MiddleHeader";
+import { useRouter } from "next/router";
+import { ReactNode, useEffect } from "react";
 import Navigatons from "../components/Navigatons";
-import SuggestionProfile from "../components/SuggestionProfile";
 import Suggestions from "../components/Suggestions";
+import { getToken } from "../core/utils/utils";
 
 interface Props {
   children: ReactNode;
@@ -12,6 +12,15 @@ interface Props {
 
 const Layout: NextPage<Props> = (props) => {
   const { children } = props;
+  const router = useRouter();
+  const token = typeof window !== "undefined" && getToken();
+  useEffect(() => {
+    if (token !== "") {
+    } else {
+      router.push("/login");
+    }
+  }, [token]);
+
   return (
     <main className="flex">
       {/* <Header /> */}

@@ -16,7 +16,8 @@ const Login: NextPage = () => {
         ...values,
       })
       .then((res) => {
-        console.log(res);
+        console.log(res.data.token);
+        localStorage.setItem("token", JSON.stringify(res.data.token));
       })
       .catch((err) => {
         console.log(err);
