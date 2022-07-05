@@ -2,10 +2,14 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import MiddleHeader from "../components/MiddleHeader";
 import Post from "../components/Post";
+import { useAppSelector } from "../hooks/reduxhooks";
 import Layout from "../layout/Layout";
 // import { Scrollbars } from "react-custom-scrollbars";
 
 const Home: NextPage = () => {
+  const userProfile = useAppSelector((state) => state.userProfile);
+  console.log(userProfile);
+
   return (
     <>
       <Head>
@@ -27,7 +31,9 @@ const Home: NextPage = () => {
               </div>
               <input
                 type="text"
-                placeholder="Express your thoughts...."
+                placeholder={`Hey ${
+                  userProfile && userProfile.name
+                }, Express your thoughts....`}
                 className="w-11/12 outline-none text-[13px] rounded-xl placeholder:text-xs placeholder:text-secondary p-[10px] bg-primary"
               />
             </div>

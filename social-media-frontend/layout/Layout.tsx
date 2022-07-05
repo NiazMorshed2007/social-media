@@ -4,7 +4,10 @@ import { useRouter } from "next/router";
 import { ReactNode, useEffect } from "react";
 import Navigatons from "../components/Navigatons";
 import Suggestions from "../components/Suggestions";
+import { http } from "../core/helpers/http";
 import { getToken } from "../core/utils/utils";
+import { useAppDispatch } from "../hooks/reduxhooks";
+import { setProfile } from "../redux/features/userSlice";
 
 interface Props {
   children: ReactNode;
@@ -13,9 +16,18 @@ interface Props {
 const Layout: NextPage<Props> = (props) => {
   const { children } = props;
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const token = typeof window !== "undefined" && getToken();
   useEffect(() => {
-    if (token !== "") {
+    if (token !== null) {
+      http
+        .get("profile/me")
+        .then((res) => {
+          dispatch(setProfile(res.data));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } else {
       router.push("/login");
     }

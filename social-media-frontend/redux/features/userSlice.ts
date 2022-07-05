@@ -5,8 +5,8 @@ interface UserSlice {
     username: String,
     name: String,
     bio: String,
+    userId: String,
     email: String,
-
 }
 
 
@@ -14,7 +14,8 @@ const initialState: UserSlice = {
     username: "",
     name: "",
     bio: "",
-    email: ""
+    email: "",
+    userId: ""
 }
 
 export const UserSlice = createSlice({
