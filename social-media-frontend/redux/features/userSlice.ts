@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { RootState } from "../store"
 
 interface UserSlice {
     username: String,
@@ -17,9 +18,17 @@ const initialState: UserSlice = {
 }
 
 export const UserSlice = createSlice({
-    name: "userSlice",
+    name: "userProfile",
     initialState,
     reducers: {
-        
+        setProfile: (state, action: PayloadAction<UserSlice>) => {
+            state = action.payload
+        }
     }
 })
+
+export const {setProfile} = UserSlice.actions
+
+export const userProfile = (state: RootState) => state.userProfile
+
+export default UserSlice.reducer

@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import counterSlice from "./features/counterSlice";
 import loggedSlice from "./features/loggedSlice";
+import userSlice from "./features/userSlice";
 
 const store = configureStore({
     reducer: {
         counter: counterSlice,
-        isLogged: loggedSlice
+        isLogged: loggedSlice,
+        userProfile: userSlice,
     }
 })
 
