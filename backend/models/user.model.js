@@ -21,6 +21,11 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    bio: {
+      type: String,
+      required: true,
+      maxlength: 150,
+    },
     password: {
       type: String,
       required: true,

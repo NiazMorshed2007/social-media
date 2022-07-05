@@ -31,16 +31,20 @@ router.get("/:id", isCurrentUser, async (req, res) => {
   User.find({ username: req.params.id })
     .then((user) => {
       if (user && user.length > 0) {
+        const spec_user = user[0];
         const data = {
-          username: user[0].username,
-          userId: user[0]._id,
-          name: user[0].name,
-          hasAccess: req.hasAccess ? true : false,
+          username: spec_user.username,
+          userId: spec_user._id,
+          name: spec_user.name,
+          bio: spec_user.bio,
+          hasAccess:
+            req.hasAccess && req.username === spec_user.username ? true : false,
         };
         res.status(200).json(data);
       } else {
         res.status(401).json({
           message: "This account dosen't exists",
+          user: user[0],
         });
       }
     })
@@ -49,12 +53,13 @@ router.get("/:id", isCurrentUser, async (req, res) => {
 
 router.post("/signup", async (req, res) => {
   try {
-    const { username, name, email, password } = req.body;
+    const { username, name, email, password, bio } = req.body;
     const hashedPass = await bcrypt.hash(password, 10);
     const newUser = new User({
       username,
       name,
       email,
+      bio,
       password: hashedPass,
     });
     newUser
@@ -86,7 +91,7 @@ router.post("/login", async (req, res) => {
           },
           process.env.JWT_SECRET,
           {
-            expiresIn: "1h",
+            expiresIn: "10h",
           }
         );
         res.status(200).json({
@@ -106,6 +111,26 @@ router.post("/login", async (req, res) => {
   } catch {
     res.status(400).json({
       message: "Authentication Failed!",
+    });
+  }
+});
+
+router.delete("/", (req, res) => {
+  if (req.body.pass === 123456) {
+    User.deleteMany()
+      .then(() => {
+        res.status(200).json({
+          message: "All users deleted",
+        });
+      })
+      .catch((err) => {
+        res.status(400).json({
+          message: "An unexected error occured: " + err,
+        });
+      });
+  } else {
+    res.status(400).json({
+      message: "You're not allowed to perform this action",
     });
   }
 });

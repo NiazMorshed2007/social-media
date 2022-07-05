@@ -1,4 +1,5 @@
 import { Button, Form, Input } from "antd";
+import TextArea from "antd/lib/input/TextArea";
 import axios from "axios";
 import { NextPage } from "next";
 import Head from "next/head";
@@ -15,8 +16,8 @@ const SignUp: NextPage = () => {
       .post(API_URL + "users/signup", {
         ...values,
       })
-      .then((res) => {
-        console.log(res);
+      .then(() => {
+        router.push("/profile/" + values.username);
       })
       .catch((err) => console.log(err));
   };
@@ -63,6 +64,13 @@ const SignUp: NextPage = () => {
               label="Password"
             >
               <Input.Password placeholder="Password" />
+            </Form.Item>
+            <Form.Item
+              name={"bio"}
+              rules={[{ required: true, message: "Please input your bio!" }]}
+              label="Bio (this will show on your profile)"
+            >
+              <TextArea maxLength={150} />
             </Form.Item>
             <Form.Item>
               <div className="flex items-center gap-3">

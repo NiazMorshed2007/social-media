@@ -1,13 +1,10 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import MiddleHeader from "../../components/MiddleHeader";
 import Post from "../../components/Post";
-import Layout from "../../layout/Layout";
-import { getProfile } from "../../core/services/profile.service";
-import axios from "axios";
 import { http } from "../../core/helpers/http";
-import { getOne } from "../../core/services/api";
+import Layout from "../../layout/Layout";
 
 const Profile = () => {
   const [profile, setProfile] = useState<any>();
@@ -17,13 +14,12 @@ const Profile = () => {
     http
       .get("users/" + id)
       .then((res) => {
-        console.log(res);
         setProfile(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [id]);
   return (
     <>
       <Head>
@@ -60,10 +56,7 @@ const Profile = () => {
                   @{profile.username}
                 </p>
                 <div className="bio py-2">
-                  <p className=" text-sm">
-                    14 y/o. FrontEnd Developer ( React | Javascript | Typescript
-                    ). 💻 • Building in public & sharing useful resources.🙌
-                  </p>
+                  <p className=" text-sm">{profile && profile.bio}</p>
                 </div>
                 <div className="py-2 flex font-light items-center gap-3">
                   <div className="text-sm">

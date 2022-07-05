@@ -18,6 +18,7 @@ const Login: NextPage = () => {
       .then((res) => {
         console.log(res.data.token);
         localStorage.setItem("token", JSON.stringify(res.data.token));
+        router.push("/profile/" + values.username);
       })
       .catch((err) => {
         console.log(err);
