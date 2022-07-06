@@ -9,9 +9,7 @@ const Suggestions: NextComponentType = () => {
   const [users, setUsers] = useState<ISuggestionsProfile[]>([]);
   useEffect(() => {
     http
-      .get("users/suggestions", {
-        limit: 2,
-      })
+      .get("users/suggestions")
       .then((res) => {
         setUsers(res.data);
         console.log(res);
@@ -21,7 +19,7 @@ const Suggestions: NextComponentType = () => {
       });
   }, []);
   return (
-    <div className="w-3/12 sticky p-5 top-0 h-full">
+    <div className="w-4/12 sticky p-5 top-0 h-full">
       <header className="w-full relative">
         <FiSearch className="absolute top-1/2 left-3 -translate-y-1/2" />
         <input
@@ -30,7 +28,8 @@ const Suggestions: NextComponentType = () => {
           placeholder="Search..."
         />
       </header>
-      <div className="wrapper mt-4 flex flex-col">
+      <div className="wrappe rounded-xl bg-gray-200/60 py-3 mt-4 flex flex-col">
+        <h1 className="pl-4 mb-3 font-bold text-xl">You might like</h1>
         {users &&
           users.map((user, _) => <SuggestionProfile key={_} {...user} />)}
       </div>

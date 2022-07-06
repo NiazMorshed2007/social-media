@@ -13,7 +13,7 @@ router.route("/").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-router.get("/suggestions", (req, res) => {
+router.get("/suggestions", isCurrentUser, (req, res) => {
   User.find()
     .then((users) => {
       if (users && users.length > 0) {
@@ -22,12 +22,13 @@ router.get("/suggestions", (req, res) => {
         const random_starting_point = Math.floor(
           Math.random() * (max - min + 1) + min
         );
-        const ending_point = random_starting_point + req.body.limit;
+        const ending_point = random_starting_point + 3;
         const spec_users = users.map(({ password, _id, email, ...rest }) => {
           return rest;
         });
         const data = spec_users.slice(random_starting_point, ending_point);
-        res.status(200).json(data);
+        console.log(users);
+        res.status(200).json(users);
       } else {
         res.status(400).json("Error!!");
       }
@@ -59,6 +60,8 @@ router.get("/:id", isCurrentUser, async (req, res) => {
           userId: spec_user._id,
           name: spec_user.name,
           bio: spec_user.bio,
+          followers: spec_user.followers,
+          following: spec_user.following,
           hasAccess:
             req.hasAccess && req.username === spec_user.username ? true : false,
         };
@@ -82,6 +85,8 @@ router.post("/signup", async (req, res) => {
       name,
       email,
       bio,
+      followers: 0,
+      following: 0,
       password: hashedPass,
     });
     newUser

@@ -21,6 +21,14 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    following: {
+      type: Number,
+      required: true,
+    },
+    followers: {
+      type: Number,
+      required: true,
+    },
     bio: {
       type: String,
       required: true,

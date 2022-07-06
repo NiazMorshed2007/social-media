@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const usersRouter = require("./routes/users");
 const profileRouter = require("./routes/userProfile");
+const actionsRouter = require("./routes/actions");
 
 const port = process.env.PORT || 5000;
 const app = express();
@@ -35,6 +36,7 @@ app.get("/", (_, res) => {
 
 app.use("/users", usersRouter);
 app.use("/profile", profileRouter);
+app.use("/actions", actionsRouter);
 
 app.listen(port, () => {
   console.log("The server is running on => localhost:" + port);

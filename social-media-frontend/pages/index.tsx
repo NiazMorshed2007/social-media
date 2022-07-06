@@ -32,8 +32,8 @@ const Home: NextPage = () => {
               <input
                 type="text"
                 placeholder={`Hey ${
-                  userProfile && userProfile.name
-                }, Express your thoughts....`}
+                  userProfile && userProfile.name.split(" ")[0]
+                }, What's happening?`}
                 className="w-11/12 outline-none text-[13px] rounded-xl placeholder:text-xs placeholder:text-secondary p-[10px] bg-primary"
               />
             </div>
