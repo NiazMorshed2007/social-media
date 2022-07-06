@@ -1,8 +1,10 @@
 import { NextComponentType } from "next";
 import { useRouter } from "next/router";
+import { useAppSelector } from "../hooks/reduxhooks";
 
 const Navigatons: NextComponentType = () => {
   const router = useRouter();
+  const userProfile = useAppSelector((state) => state.userProfile);
   const navigate = (uri: string) => {
     router.push(uri);
   };
@@ -44,7 +46,7 @@ const Navigatons: NextComponentType = () => {
           </div>
           <div
             onClick={() => {
-              navigate("/profile/niazmorshed__");
+              navigate("/profile/" + userProfile.username);
             }}
             className="flex p-2 transition-all hover:bg-gray-200/50 rounded-2xl w-max pr-5 px-1 items-center gap-2 cursor-pointer"
           >
@@ -63,8 +65,12 @@ const Navigatons: NextComponentType = () => {
               />
             </div>
             <div>
-              <h2 className="font-semibold">John Doe</h2>
-              <p className="text-[11px] text-secondary">@johndoe_</p>
+              <h2 className="font-semibold">
+                {userProfile && userProfile.name}
+              </h2>
+              <p className="text-[11px] text-secondary">
+                {userProfile && userProfile.username}
+              </p>
             </div>
           </div>
         </div>

@@ -14,15 +14,15 @@ export const http = axios.create({
   },
 });
 
-// http.interceptors.request.use(
-//   (config) => {
-//     config.headers.Authorization = `Bearer ${!isServer && getToken()}`;
-//     return config;
-//   },
-//   (err) => {
-//     console.log(err);
-//   }
-// );
+http.interceptors.request.use(
+  (config) => {
+    config.data = { commonBody };
+    return config;
+  },
+  (err) => {
+    console.log(err);
+  }
+);
 // http.interceptors.response.use(
 //   (res) => {
 //     return res;

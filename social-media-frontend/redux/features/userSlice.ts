@@ -23,7 +23,12 @@ export const UserSlice = createSlice({
     initialState,
     reducers: {
         setProfile: (state, action: PayloadAction<UserSlice>) => {
-            state = action.payload
+            const {name, username, bio, email, userId} = action.payload
+            state.bio = bio;
+            state.username = username;
+            state.name = name;
+            state.userId = userId
+            state.email = email
         }
     }
 })

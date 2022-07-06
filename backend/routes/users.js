@@ -13,6 +13,28 @@ router.route("/").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+router.get("/suggestions", (req, res) => {
+  User.find()
+    .then((users) => {
+      if (users && users.length > 0) {
+        const max = users.length;
+        const min = 0;
+        const random_starting_point = Math.floor(
+          Math.random() * (max - min + 1) + min
+        );
+        const ending_point = random_starting_point + req.body.limit;
+        const spec_users = users.map(({ password, _id, email, ...rest }) => {
+          return rest;
+        });
+        const data = spec_users.slice(random_starting_point, ending_point);
+        res.status(200).json(data);
+      } else {
+        res.status(400).json("Error!!");
+      }
+    })
+    .catch((err) => res.status(400).json("An Error occured"));
+});
+
 router.delete("/:id", checkLogin, (req, res) => {
   User.findByIdAndDelete(req.userid)
     .then(() => {
