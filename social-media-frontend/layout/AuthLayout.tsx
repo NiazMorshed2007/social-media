@@ -11,7 +11,7 @@ const AuthLayout: NextPage<Props> = (props) => {
   return (
     <main className="overflow-hidden">
       {/* <AuthHeader /> */}
-      <div className="holder w-screen h-screen flex">
+      <div className="holder w-screen flex">
         <div className="img-wrapper w-1/2">
           <img
             className="w-full h-full"

@@ -22,11 +22,11 @@ const userSchema = new Schema(
       required: true,
     },
     following: {
-      type: Number,
+      type: Array,
       required: true,
     },
     followers: {
-      type: Number,
+      type: Array,
       required: true,
     },
     bio: {

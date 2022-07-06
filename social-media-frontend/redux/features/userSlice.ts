@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { ISuggestionsProfile } from "../../interfaces/ISuggestionProfile"
 import { RootState } from "../store"
 
 interface UserSlice {
@@ -7,6 +8,8 @@ interface UserSlice {
     bio: String,
     userId: String,
     email: String,
+    followers: [],
+    following: []
 }
 
 
@@ -15,7 +18,9 @@ const initialState: UserSlice = {
     name: "",
     bio: "",
     email: "",
-    userId: ""
+    userId: "",
+    followers: [],
+    following: []
 }
 
 export const UserSlice = createSlice({
@@ -28,7 +33,9 @@ export const UserSlice = createSlice({
             state.username = username;
             state.name = name;
             state.userId = userId
-            state.email = email
+            state.email = email,
+            state.followers = []
+            state.following = []
         }
     }
 })

@@ -14,6 +14,8 @@ router.get("/me", isCurrentUser, async (req, res) => {
           userId: current_user._id,
           name: current_user.name,
           bio: current_user.bio,
+          followes: current_user.followers,
+          following: current_user.following,
         };
         res.status(200).json(data);
       } else {

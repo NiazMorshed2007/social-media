@@ -17,18 +17,20 @@ router.get("/suggestions", isCurrentUser, (req, res) => {
   User.find()
     .then((users) => {
       if (users && users.length > 0) {
-        const max = users.length;
-        const min = 0;
-        const random_starting_point = Math.floor(
-          Math.random() * (max - min + 1) + min
-        );
-        const ending_point = random_starting_point + 3;
-        const spec_users = users.map(({ password, _id, email, ...rest }) => {
-          return rest;
+        const suggestions = users.filter((user) => {
+          return user.username !== req.username;
         });
-        const data = spec_users.slice(random_starting_point, ending_point);
-        console.log(users);
-        res.status(200).json(users);
+        // const max = users.length;
+        // const min = 0;
+        // const random_starting_point = Math.floor(
+        //   Math.random() * (max - min + 1) + min
+        // );
+        // const ending_point = random_starting_point + 5;
+        // const spec_users = users.map(({ password, _id, email, ...rest }) => {
+        //   return rest;
+        // });
+        // const data = spec_users.slice(random_starting_point, ending_point);
+        res.status(200).json(suggestions);
       } else {
         res.status(400).json("Error!!");
       }
@@ -85,8 +87,8 @@ router.post("/signup", async (req, res) => {
       name,
       email,
       bio,
-      followers: 0,
-      following: 0,
+      followers: [],
+      following: [],
       password: hashedPass,
     });
     newUser

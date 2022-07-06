@@ -1,10 +1,10 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import MiddleHeader from "../../components/MiddleHeader";
-import Post from "../../components/Post";
-import { http } from "../../core/helpers/http";
-import Layout from "../../layout/Layout";
+import MiddleHeader from "../../../components/MiddleHeader";
+import Post from "../../../components/Post";
+import { http } from "../../../core/helpers/http";
+import Layout from "../../../layout/Layout";
 
 const Profile = () => {
   const [profile, setProfile] = useState<any>();
@@ -29,7 +29,7 @@ const Profile = () => {
       </Head>
       <Layout>
         <MiddleHeader title={profile && profile.name} />
-        <div className="wrapper relative -z-10">
+        <div className="wrapper relative">
           <div className="banner -z-10 absolute top-0 left-0 h-48 w-full">
             <img
               className="w-full h-full"
@@ -59,11 +59,22 @@ const Profile = () => {
                   <p className=" text-sm">{profile && profile.bio}</p>
                 </div>
                 <div className="py-2 flex font-light items-center gap-3">
-                  <div className="text-sm">
-                    <span className="font-semibold">22 </span>Following
+                  <div className="text-sm cursor-pointer hover:underline">
+                    <span className="font-semibold">
+                      {profile && profile.following.length}{" "}
+                    </span>
+                    Following
                   </div>
-                  <div className="text-sm">
-                    <span className="font-semibold">90 </span>Followers
+                  <div
+                    onClick={() => {
+                      router.push("/profile/" + id + "/followers");
+                    }}
+                    className="text-sm hover:underline cursor-pointer"
+                  >
+                    <span className="font-semibold">
+                      {profile && profile.followers.length}{" "}
+                    </span>
+                    Followers
                   </div>
                 </div>
               </>
