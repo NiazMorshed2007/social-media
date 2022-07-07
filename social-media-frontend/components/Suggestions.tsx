@@ -31,7 +31,7 @@ const Suggestions: NextComponentType = () => {
       <div className="wrappe rounded-xl bg-gray-200/60 py-3 mt-4 flex flex-col">
         <h1 className="pl-4 mb-3 font-bold text-xl">You might like</h1>
         {users &&
-          users.map((user, _) => <SuggestionProfile key={_} {...user} />)}
+          users.map((user, _) => <SuggestionProfile key={_} user={user} />)}
       </div>
     </div>
   );

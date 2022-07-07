@@ -64,6 +64,11 @@ router.get("/:id", isCurrentUser, async (req, res) => {
           bio: spec_user.bio,
           followers: spec_user.followers,
           following: spec_user.following,
+          isFollowsYou: spec_user.following.some(
+            (u) => u.username === req.username
+          )
+            ? true
+            : false,
           hasAccess:
             req.hasAccess && req.username === spec_user.username ? true : false,
         };

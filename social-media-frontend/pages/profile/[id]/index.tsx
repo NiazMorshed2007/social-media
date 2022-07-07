@@ -59,9 +59,14 @@ const Profile = () => {
                   <p className=" text-sm">{profile && profile.bio}</p>
                 </div>
                 <div className="py-2 flex font-light items-center gap-3">
-                  <div className="text-sm cursor-pointer hover:underline">
+                  <div
+                    onClick={() => {
+                      router.push("/profile/" + id + "/following");
+                    }}
+                    className="text-sm cursor-pointer hover:underline"
+                  >
                     <span className="font-semibold">
-                      {profile && profile.following.length}{" "}
+                      {profile && profile.following && profile.following.length}{" "}
                     </span>
                     Following
                   </div>
@@ -72,7 +77,7 @@ const Profile = () => {
                     className="text-sm hover:underline cursor-pointer"
                   >
                     <span className="font-semibold">
-                      {profile && profile.followers.length}{" "}
+                      {profile && profile.followers && profile.followers.length}{" "}
                     </span>
                     Followers
                   </div>

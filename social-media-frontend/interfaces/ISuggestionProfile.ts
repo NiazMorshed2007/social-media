@@ -4,4 +4,5 @@ export interface ISuggestionsProfile {
     bio: String,
     followers: [],
     following: [],
+    isFollowsYou: boolean,
 }

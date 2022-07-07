@@ -2,11 +2,14 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import FnFHeader from "../../../components/FnFHeader";
+import FnfProfile from "../../../components/FnfProfile";
 import { http } from "../../../core/helpers/http";
+import { ISuggestionsProfile } from "../../../interfaces/ISuggestionProfile";
 import Layout from "../../../layout/Layout";
 
 const following = () => {
   const [profile, setProfile] = useState<any>();
+  const followings: ISuggestionsProfile[] = profile && profile.following;
   const router = useRouter();
   const { id } = router.query;
   useEffect(() => {
@@ -28,6 +31,12 @@ const following = () => {
       </Head>
       <Layout>
         <FnFHeader query={id} name={profile && profile.name} />
+        <div className="following-wrapper">
+          {followings &&
+            followings.map((following, _) => (
+              <FnfProfile key={_} profile={following} />
+            ))}
+        </div>
       </Layout>
     </>
   );

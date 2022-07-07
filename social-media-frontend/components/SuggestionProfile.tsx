@@ -7,12 +7,17 @@ import { ISuggestionsProfile } from "../interfaces/ISuggestionProfile";
 import Avatar from "./Avatar";
 import ProfileDropDown from "./ProfileDropDown";
 
-const SuggestionProfile: NextPage<ISuggestionsProfile> = (props) => {
-  const { username, name, bio, followers, following } = props;
+interface Props {
+  user: ISuggestionsProfile;
+}
+
+const SuggestionProfile: NextPage<Props> = (props) => {
+  const { user } = props;
+  const { username, name, bio, followers, following, isFollowsYou } = user;
   const router = useRouter();
   const userProfile = useAppSelector((state) => state.userProfile);
   const follow = () => {
-    const followerId: ISuggestionsProfile = {
+    const followerId: any = {
       name: userProfile.name,
       username: userProfile.username,
       bio: userProfile.bio,
@@ -21,7 +26,7 @@ const SuggestionProfile: NextPage<ISuggestionsProfile> = (props) => {
     };
     axios
       .put(API_URL + "actions/follow", {
-        username: username,
+        followingId: { ...user },
         followerId: { ...followerId },
       })
       .then((res) => {
@@ -42,7 +47,14 @@ const SuggestionProfile: NextPage<ISuggestionsProfile> = (props) => {
         <Avatar style={"w-12 h-12"} />
         <div>
           <ProfileDropDown
-            profile={{ username, name, bio, following, followers }}
+            profile={{
+              username,
+              name,
+              bio,
+              following,
+              followers,
+              isFollowsYou,
+            }}
           >
             <h2 className="text-sm hover:underline font-medium">{name}</h2>
           </ProfileDropDown>

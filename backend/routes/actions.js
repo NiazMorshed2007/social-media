@@ -2,29 +2,30 @@ const User = require("../models/user.model");
 const router = require("express").Router();
 
 router.put("/follow", (req, res) => {
-  let prev_followers = [];
-  User.find({ username: req.body.username })
-    .then((user) => {
-      prev_followers = user[0].followers;
-    })
-    .catch(() => {
-      res.status(400).json("This action can't be done");
-    });
-  prev_followers.push(req.body.followerId);
   User.findOneAndUpdate(
-    { username: req.body.username },
+    { username: req.body.followingId.username },
     {
-      followers: prev_followers,
+      $push: { followers: req.body.followerId },
     },
     {
       returnOriginal: false,
     }
   )
     .then(() => {
-      res.status(200).json({
-        message: "You're following" + req.body.username,
-        followers: prev_followers,
-      });
+      User.findOneAndUpdate(
+        { username: req.body.followerId.username },
+        {
+          $push: {
+            following: req.body.followingId,
+          },
+        }
+      )
+        .then(() => {
+          res.status(200).json("following the person");
+        })
+        .catch(() => {
+          res.status(400).json("Something went wrong.");
+        });
     })
     .catch(() => res.status(400).json("Something went wrong."));
 });
