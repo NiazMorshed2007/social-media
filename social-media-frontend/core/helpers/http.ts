@@ -1,6 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../config/environment.ts";
-import { userLogout } from "../services/auth.service";
+import { API_URL } from "../config/environment";
 import { getToken } from "../utils/utils";
 
 const isServer = typeof window === "undefined";

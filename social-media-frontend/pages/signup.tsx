@@ -1,25 +1,22 @@
 import { Button, Form, Input } from "antd";
 import TextArea from "antd/lib/input/TextArea";
-import axios from "axios";
 import { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React from "react";
-import { API_URL } from "../core/config/environment";
+import { signup } from "../core/services/auth.service";
 import AuthLayout from "../layout/AuthLayout";
 
 const SignUp: NextPage = () => {
   const router = useRouter();
   const [form] = Form.useForm();
   const handleSubmit = (values: any): void => {
-    axios
-      .post(API_URL + "users/signup", {
-        ...values,
-      })
+    signup(values)
       .then(() => {
-        router.push("/profile/" + values.username);
+        router.push("/login");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <>

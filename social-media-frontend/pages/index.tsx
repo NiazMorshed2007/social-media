@@ -4,7 +4,6 @@ import MiddleHeader from "../components/MiddleHeader";
 import Post from "../components/Post";
 import { useAppSelector } from "../hooks/reduxhooks";
 import Layout from "../layout/Layout";
-// import { Scrollbars } from "react-custom-scrollbars";
 
 const Home: NextPage = () => {
   const userProfile = useAppSelector((state) => state.userProfile);

@@ -1,10 +1,9 @@
-import axios from "axios";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { ReactNode, useEffect } from "react";
 import Navigatons from "../components/Navigatons";
 import Suggestions from "../components/Suggestions";
-import { http } from "../core/helpers/http";
+import { getProfile } from "../core/services/profile.service";
 import { getToken } from "../core/utils/utils";
 import { useAppDispatch } from "../hooks/reduxhooks";
 import { setProfile } from "../redux/features/userSlice";
@@ -20,14 +19,11 @@ const Layout: NextPage<Props> = (props) => {
   const token = typeof window !== "undefined" && getToken();
   useEffect(() => {
     if (token !== null) {
-      http
-        .get("profile/me")
+      getProfile()
         .then((res) => {
           dispatch(setProfile(res.data));
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((err) => console.log(err));
     } else {
       router.push("/login");
     }

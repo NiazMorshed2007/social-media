@@ -1,9 +1,9 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import FnFHeader from "../../../components/FnFHeader";
 import FnfProfile from "../../../components/FnfProfile";
-import { http } from "../../../core/helpers/http";
+import { getOneUser } from "../../../core/services/user.service";
 import { ISuggestionsProfile } from "../../../interfaces/ISuggestionProfile";
 import Layout from "../../../layout/Layout";
 
@@ -13,14 +13,11 @@ const following = () => {
   const router = useRouter();
   const { id } = router.query;
   useEffect(() => {
-    http
-      .get("users/" + id)
+    getOneUser(id)
       .then((res) => {
         setProfile(res.data);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => console.log(err));
   }, [id]);
   return (
     <>
@@ -30,7 +27,7 @@ const following = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <FnFHeader query={id} name={profile && profile.name} />
+        <FnFHeader type="following" query={id} name={profile && profile.name} />
         <div className="following-wrapper">
           {followings &&
             followings.map((following, _) => (

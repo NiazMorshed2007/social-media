@@ -1,26 +1,23 @@
 import { Button, Form, Input } from "antd";
-import axios from "axios";
 import { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React from "react";
-import { API_URL } from "../core/config/environment";
+import { useState } from "react";
+import { login } from "../core/services/auth.service";
 import AuthLayout from "../layout/AuthLayout";
 
 const Login: NextPage = () => {
   const router = useRouter();
+  const [err, setErr] = useState(false);
   const [form] = Form.useForm();
   const handleSubmit = (values: any): void => {
-    axios
-      .post(API_URL + "users/login", {
-        ...values,
-      })
+    login(values)
       .then((res) => {
-        console.log(res.data.token);
         localStorage.setItem("token", JSON.stringify(res.data.token));
         router.push("/profile/" + values.username);
       })
       .catch((err) => {
+        setErr(true);
         console.log(err);
       });
   };
@@ -54,6 +51,11 @@ const Login: NextPage = () => {
             >
               <Input.Password placeholder="Password" />
             </Form.Item>
+            {err && (
+              <div className="text-red-500 mb-5">
+                Username or password might wrong
+              </div>
+            )}
             <Form.Item>
               <div className="flex items-center gap-3">
                 <Button htmlType="submit" className="primary-btn">

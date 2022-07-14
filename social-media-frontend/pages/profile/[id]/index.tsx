@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import MiddleHeader from "../../../components/MiddleHeader";
 import Post from "../../../components/Post";
-import { http } from "../../../core/helpers/http";
+import { getOneUser } from "../../../core/services/user.service";
 import Layout from "../../../layout/Layout";
 
 const Profile = () => {
@@ -11,14 +11,11 @@ const Profile = () => {
   const router = useRouter();
   const { id } = router.query;
   useEffect(() => {
-    http
-      .get("users/" + id)
+    getOneUser(id)
       .then((res) => {
         setProfile(res.data);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => console.log(err));
   }, [id]);
   return (
     <>

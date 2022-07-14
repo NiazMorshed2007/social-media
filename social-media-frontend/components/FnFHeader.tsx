@@ -6,10 +6,11 @@ import MiddleHeader from "./MiddleHeader";
 interface Props {
   query: String | undefined | string[];
   name: String;
+  type: "followers" | "following";
 }
 
 const FnFHeader: NextPage<Props> = (props) => {
-  const { query, name } = props;
+  const { query, name, type } = props;
   const router = useRouter();
   return (
     <>
@@ -21,7 +22,13 @@ const FnFHeader: NextPage<Props> = (props) => {
           }}
           className="w-1/2 py-4 cursor-pointer hover:bg-gray-200/50 transition-all text-center"
         >
-          <span className="border-b-2 pb-2 border-brand">Followers</span>
+          <span
+            className={` pb-2 ${
+              type === "followers" && "border-brand border-b-2"
+            } `}
+          >
+            Followers
+          </span>
         </div>
         <div
           onClick={() => {
@@ -29,7 +36,13 @@ const FnFHeader: NextPage<Props> = (props) => {
           }}
           className="w-1/2 py-4 cursor-pointer hover:bg-gray-200/50 transition-all text-center"
         >
-          <span>Following</span>
+          <span
+            className={` pb-2 ${
+              type === "following" && "border-brand border-b-2"
+            } `}
+          >
+            Following
+          </span>
         </div>
       </div>
     </>
